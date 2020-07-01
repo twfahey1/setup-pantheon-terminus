@@ -12,8 +12,11 @@ async function run() {
 	try {
 		const PANTHEON_MACHINE_TOKEN = core.getInput( 'pantheon-machine-token' );
 
-		await exec.exec( 'mkdir terminus && cd ~/terminus && composer require pantheon-systems/terminus' );
-		await exec.exec( 'alias terminus=terminus/vendor/bin/terminu' );
+		await exec.exec( 'mkdir terminus');
+		await exec.exec( 'cd terminus');
+		await exec.exec( 'composer require pantheon-systems/terminus' );
+		await exec.exec( 'cd..');
+		await exec.exec( 'alias terminus=terminus/vendor/bin/terminus' );
 		await exec.exec( 'terminus', [ 'auth:login', `--machine-token=${ PANTHEON_MACHINE_TOKEN }` ] );
 	} catch ( error ) {
 		core.setFailed( error.message );
